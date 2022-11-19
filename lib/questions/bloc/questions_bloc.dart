@@ -62,7 +62,6 @@ class QuestionsBloc extends Bloc<QuestionsEvent, QuestionsState> {
             ..isSuccess = true
             ..isLoading = false
             ..questionsModel = result as QuestionsModel?));
-          localSource.save(result.items!);
 
         }
         else{

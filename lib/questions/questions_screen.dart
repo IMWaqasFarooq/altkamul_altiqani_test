@@ -1,3 +1,5 @@
+import 'package:altkamul_altiqani_test/questions/data/local_data_source/data_box.dart';
+import 'package:altkamul_altiqani_test/questions/data/local_data_source/questions_local_data.dart';
 import 'package:altkamul_altiqani_test/questions/model/items_model.dart';
 import 'package:altkamul_altiqani_test/questions/widgets/questions_widget.dart';
 import 'package:altkamul_altiqani_test/questions_detail/questions_detail_screen.dart';
@@ -51,9 +53,12 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
         listener: (context, state) {
           // TODO: implement listener
           if (state.isSuccess!) {
+            QuestionsLocalDataSource localSource = QuestionsLocalDataSourceImpl(DataBox());
             _pageNumber += 1;
             _pagingController.appendPage(
                 state.questionsModel!.items ?? [], _pageNumber);
+            localSource.save(_pagingController.itemList??[]);
+
           } else if(state.error!.isNotEmpty) {
             _pagingController.error = state.error ?? "error";
           }
